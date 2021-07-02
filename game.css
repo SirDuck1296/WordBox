@@ -7,11 +7,12 @@
 }
 
 #gamecontainer {
-    margin: auto
+    margin: auto;
     display: block;
 }
 
 #wordbox {
+    vertical-align: top;
     display: inline-block;
     position: relative;
     width: 300px;
@@ -20,17 +21,39 @@
     background-size: 300px 300px;
 }
 
-#leftbox{
+#inventory-container{
+    vertical-align: top;
     display: inline-block;
     width: 250px;
 }
 
+#inventory-words{
+    overflow-y: scroll;
+    width: 200px;
+    height: 200px;
+    border: 1px solid black;
+}
+
+#inventory-letters{
+    width: 200px;
+    border: 1px solid black;
+}
+
+.letter-list {
+    display: inline-block;
+    width: 49%;
+    vertical-align: top;
+    font-weight: bold;
+}
 
 #rightbox{
     display: inline-block;
     width: 250px;
 }
 
+.word {
+    font-weight: bold;
+}
 
 .bouncing-word {
     position: absolute;

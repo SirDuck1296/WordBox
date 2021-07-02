@@ -10,7 +10,15 @@
   <body>
     <div id="title"><h1>The Word Box</h1></div>
     <div id="gamecontainer">
-      <div id="leftbox"></div>
+      <div id="inventory-container">
+	<h2>Inventory</h2>
+	<div id="inventory-words"></div>
+	<h2>Letters</h2>
+	<div id="inventory-letters">
+	  <div id="letters-am" class="letter-list"></div>
+	  <div id="letters-nz" class="letter-list"></div>
+	</div>
+      </div>
       <div id="wordbox" class="unselectable" onclick="boxClick()"></div>
       <div id="rightbox"></div>
     </div>
