@@ -1,4 +1,16 @@
-wordList = ['hat', 'cat', 'dog', 'coffee']
+wordList = []
+
+
+function loadDoc(filename) {
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function() {
+	wordList = this.responseText.split("\n")
+    }
+    xhttp.open("GET", "https://sirduck1296.github.io/WordBox/wordlists/" + filename);
+    xhttp.send();
+}
+
+loadDoc('three-common.txt')
 
 alphaSettings = {
     a: {"value": 1, "type":"main"},
