@@ -65,6 +65,11 @@
     display: none;
 }
 
+#grinder-buttons-container {
+    display: block;
+    padding: 10px;
+}
+
 #grinder {
     vertical-align: top;
     display: block;

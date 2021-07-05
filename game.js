@@ -153,6 +153,29 @@ function grinderSelect() {
     }
 }
 
+// Grind all of the selected words into letters
+function grindSelected() {
+    for (let i=0; i<game.inventory.length; i++) {
+	var item = game.inventory[i]
+	if (item.selected) {
+	    var mult = ([1,2,4,8,16])[item.rarity]
+	    for (let j=0; j<mult; j++) {
+		for (let k=0; k<item.word.length; k++) {
+		    var letter = item.word[k]
+		    game.letters[letter] += 1
+		}
+	    }
+	}
+    }
+    // Remove selected items from inventory
+    var newInventory = []
+    for (let i=0; i<game.inventory.length; i++) {
+	if (!game.inventory[i].selected)
+	    newInventory.push(game.inventory[i])
+    }
+    game.inventory = newInventory
+    update()
+}
 
 
 function update() {
