@@ -13,6 +13,22 @@ game.letters = {a:0, b:0, c:0, d:0, e:0, f:0, g:0,
 		n:0, o:0, p:0, q:0, r:0, s:0, t:0,
 		u:0, v:0, w:0, x:0, y:0, z:0}
 
+// Takes an array of relative chance values and returns a random result
+function jRandom(input) {
+    var sum = 0
+    for (let i=0; i<input.length; i++) {
+	sum += input[i]
+    }
+    var value = Math.floor( Math.random() * sum )
+    sum = 0
+    for (let i=0; i<input.length; i++) {
+	sum += input[i]
+	if (sum > value) {
+	    return i
+	}
+    }
+}
+
 function addRarityClass(div, rarity) {
     switch (rarity) {
     case 0: break;
@@ -74,6 +90,11 @@ function wordClick() {
 }
 
 function boxClick() {
+    //Decide whether to toss out a word
+    if (!jRandom([19,1])) {
+	return
+    }
+
     var div = document.createElement('div')
     div.className = 'bouncing-word'
     
@@ -81,7 +102,7 @@ function boxClick() {
     var word = wordList[Math.floor(Math.random()*wordList.length)]
     div.innerText = word
 
-    var rarity = Math.floor( 5 * Math.pow(Math.random(),20) )
+    var rarity = jRandom([10000, 1000, 100, 10, 1])
     addRarityClass(div, rarity)
     
     wordbox = document.getElementById('wordbox')

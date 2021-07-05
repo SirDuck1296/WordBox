@@ -11,10 +11,23 @@
     display: block;
 }
 
+#left-container{
+    vertical-align: top;
+    display: inline-block;
+    width: 250px;
+    padding: 5px;
+}
+
 #center-container {
     vertical-align: top;
     display: inline-block;
     width: 300px
+}
+
+#right-container {
+    vertical-align: top;
+    display: inline-block;
+    width: 250px;
 }
 
 .word-selected {
@@ -80,12 +93,6 @@
     background-size: 300px 300px;
 }
 
-#inventory-container{
-    vertical-align: top;
-    display: inline-block;
-    width: 250px;
-}
-
 #inventory-words{
     overflow-y: scroll;
     width: 200px;
@@ -103,11 +110,6 @@
     width: 49%;
     vertical-align: top;
     font-weight: bold;
-}
-
-#rightbox{
-    display: inline-block;
-    width: 250px;
 }
 
 .word {
