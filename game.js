@@ -4,6 +4,7 @@ game = {}
 function Item(word, rarity) {
     this.word = word
     this.rarity = rarity
+    this.selected = false
 }
 
 game.inventory = []
@@ -29,7 +30,12 @@ function inventoryWordsUpdate() {
     for (let i=0; i<game.inventory.length; i++) {
 	newdiv = document.createElement('div')
 	newdiv.className = 'word'
+	newdiv.index = i
+	newdiv.onclick = wordClick
 	newdiv.innerText = game.inventory[i].word
+	if (game.inventory[i].selected)
+	    newdiv.classList.add('word-selected')
+	newdiv.classList.add('unselectable')
 	addRarityClass(newdiv, game.inventory[i].rarity)
 	inventory_div.appendChild(newdiv)
     }
@@ -53,6 +59,17 @@ function inventoryLettersUpdate() {
 	let div = document.createElement('div')
 	div.innerText = letter + ': ' + game.letters[letter]
 	nz_div.appendChild(div)
+    }
+}
+
+function wordClick() {
+    if (this.classList.contains('word-selected')) {
+	this.classList.remove('word-selected')
+	game.inventory[this.index].selected = false
+    }
+    else {
+	this.classList.add('word-selected')
+	game.inventory[this.index].selected = true
     }
 }
 
@@ -103,6 +120,40 @@ function boxClick() {
     }, 2500);
 
 }
+
+
+// Functions for the main menu selection buttons
+function boxSelect() {
+    var wordbox_select = document.getElementById('select-wordbox')
+    var grinder_select = document.getElementById('select-grinder')
+
+    var wordbox = document.getElementById('wordbox-container')
+    var grinder = document.getElementById('grinder-container')
+    
+    if (!wordbox_select.classList.contains('selection-row-selected')) {
+	wordbox_select.classList.add('selection-row-selected')
+	wordbox.style.display = 'inline-block'
+	grinder.style.display = 'none'
+	grinder_select.classList.remove('selection-row-selected')
+    }
+}
+
+function grinderSelect() {
+    var wordbox_select = document.getElementById('select-wordbox')
+    var grinder_select = document.getElementById('select-grinder')
+
+    var wordbox = document.getElementById('wordbox-container')
+    var grinder = document.getElementById('grinder-container')
+    
+    if (!grinder_select.classList.contains('selection-row-selected')) {
+	grinder_select.classList.add('selection-row-selected')
+	grinder.style.display = 'inline-block'
+	wordbox.style.display = 'none'
+	wordbox_select.classList.remove('selection-row-selected')
+    }
+}
+
+
 
 function update() {
     inventoryWordsUpdate()

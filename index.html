@@ -19,7 +19,18 @@
 	  <div id="letters-nz" class="letter-list"></div>
 	</div>
       </div>
-      <div id="wordbox" class="unselectable" onclick="boxClick()"></div>
+      <div id="center-container">
+	<div id="selection-row">
+	  <div id="select-wordbox" class="unselectable selection-row-selected" onclick="boxSelect()">Box</div>
+	  <div id="select-grinder" class="unselectable" onclick="grinderSelect()">Grinder</div>
+	</div>
+	<div id="wordbox-container">
+	  <div id="wordbox" class="unselectable" onclick="boxClick()"></div>
+	</div>
+	<div id="grinder-container">
+	  <div id="grinder" class="unselectable"></div>
+	</div>
+      </div>
       <div id="rightbox"></div>
     </div>
   </body>

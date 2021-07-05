@@ -11,13 +11,67 @@
     display: block;
 }
 
-#wordbox {
+#center-container {
     vertical-align: top;
     display: inline-block;
+    width: 300px
+}
+
+.word-selected {
+    background-color: rgb(240,230,140);
+}
+
+#selection-row {
+    vertical-align: top;
+    display: block;
+    width: 100%
+}
+
+.selection-row-selected {
+    background-color: rgb(192,192,192);
+}
+
+#select-wordbox {
+    vertical-align: top;
+    display: inline-block;
+    width: 50 px;
+    border: 1px solid black;
+    padding: 10px;
+}
+
+#select-grinder {
+    vertical-align: top;
+    display: inline-block;
+    width: 50 px;
+    border: 1px solid black;
+    padding: 10px;
+}
+
+#wordbox-container {
+    display: inline-block;
+}
+
+#wordbox {
+    vertical-align: top;
+    display: block;
     position: relative;
     width: 300px;
     height: 300px;
     background-image: url("img/box.png");
+    background-size: 300px 300px;
+}
+
+#grinder-container {
+    display: none;
+}
+
+#grinder {
+    vertical-align: top;
+    display: block;
+    position: relative;
+    width: 300px;
+    height: 300px;
+    background-image: url("img/grinder.png");
     background-size: 300px 300px;
 }
 
@@ -53,6 +107,7 @@
 
 .word {
     font-weight: bold;
+    cursor: default;
 }
 
 .bouncing-word {
