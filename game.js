@@ -106,9 +106,43 @@ function upgradesUpdate() {
 	    div.innerText = upgradeData[i].name
 	    div.onclick = function() {buy_upgrade(i)}
 
+	    var popup_div = document.createElement('div')
+	    popup_div.className = 'upgrade-popup'
+
+	    var description_div = document.createElement('div')
+	    var cost_div = document.createElement('div')
+	    var flavor_div = document.createElement('div')
+
+	    description_div.className = 'popup-description'
+	    cost_div.className = 'popup-cost'
+	    flavor_div.className = 'popup-flavor'
+
+	    description_div.innerText = upgradeData[i].description
+	    flavor_div.innerText = upgradeData[i].flavor_text
+
+	    for (let letter in upgradeData[i].cost) {
+		var letter_div = document.createElement('div')
+		if (upgradeData[i].cost[letter] <= game.letters[letter])
+		    letter_div.className = 'can-afford'
+		else
+		    letter_div.className = 'cannot-afford'
+		letter_div.innerText = ''
+		    + letter
+		    + ': '
+		    + upgradeData[i].cost[letter]
+		    + ' ('
+		    + game.letters[letter]
+		    + ')'
+		cost_div.appendChild(letter_div)
+	    }
+	    
+	    popup_div.appendChild(description_div)
+	    popup_div.appendChild(cost_div)
+	    popup_div.appendChild(flavor_div)
+	    
+	    div.appendChild(popup_div)
 
 	    upgrades_div.appendChild(div)
-	    console.log(upgrades_div)
 	}
     }
 }
@@ -126,7 +160,7 @@ function calcWordChance() {
     	+ ( isPurchased('Boas') ? 5 : 0)
     	+ ( isPurchased('Cats') ? 5 : 0)
         + ( isPurchased('Cows') ? 5 : 0)
-    	+ ( isPurchased('Bees') ? 5 : 0)
+    	+ ( isPurchased('Dogs') ? 5 : 0)
     	+ ( isPurchased('Eels') ? 5 : 0)
     	+ ( isPurchased('Ewes') ? 5 : 0)
     	+ ( isPurchased('Foxes') ? 5 : 0)

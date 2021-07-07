@@ -155,7 +155,51 @@
 
 .upgrade {
     display: inline-block;
+    position: relative;
     cursor: pointer;
     border: 1px solid black;
     padding: 10px;
+}
+
+.upgrade .upgrade-popup {
+    display: inline;
+    visibility: hidden;
+    border-radius: 3px;
+    border: 1px solid black;
+    background-color: rgb(192,192,192);
+    position: absolute;
+    z-index: 1;
+
+    width: 120px;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -60px;
+}
+
+.upgrade:hover .upgrade-popup {
+    visibility: visible;
+}
+
+.popup-description {
+    display: block;
+    text-align: center;
+}
+
+.popup-cost {
+    display: block;
+    text-align: right;
+}
+
+.popup-flavor {
+    display: block;
+    font-style: italic;
+    text-align: center;
+}
+
+.can-afford {
+    color: green;
+}
+
+.cannot-afford {
+    color: red;
 }
