@@ -113,10 +113,26 @@ function upgradesUpdate() {
     }
 }
 
+function isPurchased(name) {
+    return game.upgrades_purchased[upgradeIndex[name]]
+}
+
 function calcWordChance() {
     return 5
-	+ (game.upgrades_purchased[upgradeIndex['Ants']] ? 5 : 0)
-    	+ (game.upgrades_purchased[upgradeIndex['Bees']] ? 5 : 0) 
+	+ ( isPurchased('Ants') ? 5 : 0)
+	+ ( isPurchased('Apes') ? 5 : 0)
+    	+ ( isPurchased('Asps') ? 5 : 0)
+    	+ ( isPurchased('Bees') ? 5 : 0)
+    	+ ( isPurchased('Boas') ? 5 : 0)
+    	+ ( isPurchased('Cats') ? 5 : 0)
+        + ( isPurchased('Cows') ? 5 : 0)
+    	+ ( isPurchased('Bees') ? 5 : 0)
+    	+ ( isPurchased('Eels') ? 5 : 0)
+    	+ ( isPurchased('Ewes') ? 5 : 0)
+    	+ ( isPurchased('Foxes') ? 5 : 0)
+    	+ ( isPurchased('Koi') ? 5 : 0)
+    	+ ( isPurchased('Owls') ? 5 : 0)
+        + ( isPurchased('Pigs') ? 5 : 0)
 }
 
 // calculate word chance %
