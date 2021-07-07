@@ -12,6 +12,23 @@ game.letters = {a:0, b:0, c:0, d:0, e:0, f:0, g:0,
 		h:0, j:0, i:0, j:0, k:0, l:0, m:0,
 		n:0, o:0, p:0, q:0, r:0, s:0, t:0,
 		u:0, v:0, w:0, x:0, y:0, z:0}
+game.upgrades_purchased = new Array(upgradeData.length).fill(false)
+
+function buy_upgrade(num) {
+    var upgrade = upgradeData[num]
+    var can_afford = true
+    for (let letter in upgrade.cost) {
+	if ( game.letters[letter] < upgrade.cost[letter] )
+	    can_afford = false
+    }
+    if (can_afford) {
+	game.upgrades_purchased[num] = true
+	for (let letter in upgrade.cost) {
+	    game.letters[letter] -= upgrade.cost[letter]
+	}
+	update()
+    }
+}
 
 // Takes an array of relative chance values and returns a random result
 function jRandom(input) {
@@ -78,6 +95,36 @@ function inventoryLettersUpdate() {
     }
 }
 
+function upgradesUpdate() {
+    var upgrades_div = document.getElementById('upgrades')
+    while (upgrades_div.firstChild)
+	upgrades_div.removeChild(upgrades_div.lastChild)
+    for (let i=0; i<upgradeData.length; i++) {
+	if (upgradeData[i].isUnlocked() && !game.upgrades_purchased[i]) {
+	    var div = document.createElement('div')
+	    div.className = 'upgrade'
+	    div.innerText = upgradeData[i].name
+	    div.onclick = function() {buy_upgrade(i)}
+
+
+	    upgrades_div.appendChild(div)
+	    console.log(upgrades_div)
+	}
+    }
+}
+
+function calcWordChance() {
+    return 5
+	+ (game.upgrades_purchased[upgradeIndex['Ants']] ? 5 : 0)
+    	+ (game.upgrades_purchased[upgradeIndex['Bees']] ? 5 : 0) 
+}
+
+// calculate word chance %
+function wordboxInfoUpdate() {
+    var wordbox_info = document.getElementById('wordbox-info')
+    wordbox_info.innerText = "Word chance: " + calcWordChance() + "%"
+}
+
 function wordClick() {
     if (this.classList.contains('word-selected')) {
 	this.classList.remove('word-selected')
@@ -91,7 +138,8 @@ function wordClick() {
 
 function boxClick() {
     //Decide whether to toss out a word
-    if (!jRandom([19,1])) {
+    var chance = calcWordChance()
+    if (!jRandom([100-chance, chance])) {
 	return
     }
 
@@ -202,4 +250,8 @@ function grindSelected() {
 function update() {
     inventoryWordsUpdate()
     inventoryLettersUpdate()
+    upgradesUpdate()
+    wordboxInfoUpdate()
 }
+
+window.onload = function() {update();}
