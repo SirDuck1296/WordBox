@@ -36,6 +36,14 @@ upgradeData.push( new Upgrade(
 ))
 
 upgradeData.push( new Upgrade(
+    "Bats",
+    {b:1, a:1, t:1, s:1},
+    "Gain 5% more words/click",
+    "The bats go sonaring...",
+    function() {return true;}
+))
+
+upgradeData.push( new Upgrade(
     "Bees",
     {b:1, e:2, s:1},
     "Gain 5% more words/click",
@@ -84,6 +92,14 @@ upgradeData.push( new Upgrade(
 ))
 
 upgradeData.push( new Upgrade(
+    "Emus",
+    {e:1, m:1, u:1, s:1},
+    "Gain 5% more words/click",
+    "The emus go running...",
+    function() {return true;}
+))
+
+upgradeData.push( new Upgrade(
     "Ewes",
     {e:2, w:1, s:1},
     "Gain 5% more words/click",
@@ -123,6 +139,21 @@ upgradeData.push( new Upgrade(
     function() {return true;}
 ))
 
+upgradeData.push( new Upgrade(
+    "Autogrinder",
+    {a:10, e:10, i:10, o:10, u:10},
+    "Unlock the autogrinder",
+    "Finally something useful...",
+    function() {return ( calcWordChance() >= 25 );}
+))
+
+upgradeData.push( new Upgrade(
+    "Common Ground",
+    {a:50, e:50, i:50, o:50, u:50},
+    "Option to grind all common words",
+    "Helps settle arguments.",
+    function() {return ( calcWordChance() >= 50 );}
+))
 
 
 

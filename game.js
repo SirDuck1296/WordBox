@@ -120,12 +120,15 @@ function upgradesUpdate() {
 	    description_div.innerText = upgradeData[i].description
 	    flavor_div.innerText = upgradeData[i].flavor_text
 
+	    var can_afford = true
 	    for (let letter in upgradeData[i].cost) {
 		var letter_div = document.createElement('div')
 		if (upgradeData[i].cost[letter] <= game.letters[letter])
 		    letter_div.className = 'can-afford'
-		else
+		else {
 		    letter_div.className = 'cannot-afford'
+		    can_afford = false
+		}
 		letter_div.innerText = ''
 		    + letter
 		    + ': '
@@ -135,6 +138,11 @@ function upgradesUpdate() {
 		    + ')'
 		cost_div.appendChild(letter_div)
 	    }
+
+	    if (can_afford)
+		div.classList.add('upgrade-can-afford')
+	    else
+		div.classList.add('upgrade-cannot-afford')
 	    
 	    popup_div.appendChild(description_div)
 	    popup_div.appendChild(cost_div)
@@ -156,17 +164,23 @@ function calcWordChance() {
 	+ ( isPurchased('Ants') ? 5 : 0)
 	+ ( isPurchased('Apes') ? 5 : 0)
     	+ ( isPurchased('Asps') ? 5 : 0)
+        + ( isPurchased('Bats') ? 5 : 0)
     	+ ( isPurchased('Bees') ? 5 : 0)
     	+ ( isPurchased('Boas') ? 5 : 0)
     	+ ( isPurchased('Cats') ? 5 : 0)
         + ( isPurchased('Cows') ? 5 : 0)
     	+ ( isPurchased('Dogs') ? 5 : 0)
     	+ ( isPurchased('Eels') ? 5 : 0)
+        + ( isPurchased('Emus') ? 5 : 0)
     	+ ( isPurchased('Ewes') ? 5 : 0)
     	+ ( isPurchased('Foxes') ? 5 : 0)
     	+ ( isPurchased('Koi') ? 5 : 0)
     	+ ( isPurchased('Owls') ? 5 : 0)
         + ( isPurchased('Pigs') ? 5 : 0)
+}
+
+function calcInventorySize() {
+    return 20
 }
 
 // calculate word chance %
@@ -186,6 +200,19 @@ function wordClick() {
     }
 }
 
+function autogrinderUpdate() {
+    var autogrinder_div = document.getElementById('autogrinder')
+    var autogrinder2_div = document.getElementById('autogrinder2')
+    if (isPurchased('Autogrinder'))
+	autogrinder_div.style.visibility = 'visible'
+    else
+	autogrinder_div.style.visibility = 'hidden'
+    if (isPurchased('Common Ground'))
+	autogrinder2_div.style.visibility = 'visible'
+    else
+	autogrinder2_div.style.visibility = 'hidden'
+}
+
 function boxClick() {
     //Decide whether to toss out a word
     var chance = calcWordChance()
@@ -193,15 +220,31 @@ function boxClick() {
 	return
     }
 
+    var word = wordList[Math.floor(Math.random()*wordList.length)]
+    var rarity = jRandom([10000, 1000, 100, 10, 1])
+    
+    var autogrinder_checked = document.getElementById('autogrinder-checkbox').checked
+    var autogrinder2_checked = document.getElementById('autogrinder2-checkbox').checked
+    
+    if (game.inventory.length >= calcInventorySize() && !autogrinder_checked
+	&& !(rarity == 0 && autogrinder2_checked)) {
+	console.log('TODO: inventory full message')
+	return
+    }
+    
     var div = document.createElement('div')
     div.className = 'bouncing-word'
-    
-    //Select a random word from wordList    
-    var word = wordList[Math.floor(Math.random()*wordList.length)]
     div.innerText = word
-
-    var rarity = jRandom([10000, 1000, 100, 10, 1])
     addRarityClass(div, rarity)
+
+    if (autogrinder2_checked && rarity == 0)
+	grind(new Item(word, rarity))
+    else if (game.inventory.length < calcInventorySize())
+	game.inventory.push(new Item(word, rarity));
+    else if (autogrinder_checked) {
+	grind(new Item(word, rarity))
+    }
+    update()
     
     wordbox = document.getElementById('wordbox')
     wordbox.appendChild(div)
@@ -234,8 +277,6 @@ function boxClick() {
 	
     setTimeout(function() {
 	wordbox.removeChild(div);
-	game.inventory.push(new Item(word, rarity));
-	update();
     }, 2500);
 
 }
@@ -272,18 +313,20 @@ function grinderSelect() {
     }
 }
 
+function grind(item) {
+    var mult = ([1,2,4,8,16])[item.rarity]
+    for (let k=0; k<item.word.length; k++) {
+	var letter = item.word[k]
+	game.letters[letter] += mult
+    }
+}
+
 // Grind all of the selected words into letters
 function grindSelected() {
     for (let i=0; i<game.inventory.length; i++) {
 	var item = game.inventory[i]
 	if (item.selected) {
-	    var mult = ([1,2,4,8,16])[item.rarity]
-	    for (let j=0; j<mult; j++) {
-		for (let k=0; k<item.word.length; k++) {
-		    var letter = item.word[k]
-		    game.letters[letter] += 1
-		}
-	    }
+	    grind(item)
 	}
     }
     // Remove selected items from inventory
@@ -302,6 +345,7 @@ function update() {
     inventoryLettersUpdate()
     upgradesUpdate()
     wordboxInfoUpdate()
+    autogrinderUpdate()
 }
 
 window.onload = function() {update();}

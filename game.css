@@ -88,6 +88,14 @@
     padding: 10px;
 }
 
+#autogrinder {
+    visibility: hidden;
+}
+
+#autogrinder2 {
+    visibility: hidden;
+}
+
 #grinder {
     vertical-align: top;
     display: block;
@@ -157,8 +165,17 @@
     display: inline-block;
     position: relative;
     cursor: pointer;
+    border-radius: 3px;
     border: 1px solid black;
     padding: 10px;
+}
+
+.upgrade-can-afford {
+    background-color: rgb(192,255,192);
+}
+
+.upgrade-cannot-afford {
+    background-color: rgb(255,192,192);
 }
 
 .upgrade .upgrade-popup {
