@@ -160,7 +160,7 @@ function isPurchased(name) {
 }
 
 function calcWordChance() {
-    return 20
+    return 5
 	+ ( isPurchased('Ants') ? 5 : 0)
 	+ ( isPurchased('Apes') ? 5 : 0)
     	+ ( isPurchased('Asps') ? 5 : 0)
@@ -174,9 +174,12 @@ function calcWordChance() {
         + ( isPurchased('Emus') ? 5 : 0)
     	+ ( isPurchased('Ewes') ? 5 : 0)
     	+ ( isPurchased('Foxes') ? 5 : 0)
+        + ( isPurchased('Flys') ? 5 : 0)
+	+ ( isPurchased('Hens') ? 5 : 0)
     	+ ( isPurchased('Koi') ? 5 : 0)
     	+ ( isPurchased('Owls') ? 5 : 0)
         + ( isPurchased('Pigs') ? 5 : 0)
+        + ( isPurchased('Yaks') ? 5 : 0)
 }
 
 function calcInventorySize() {

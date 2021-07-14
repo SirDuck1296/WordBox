@@ -23,7 +23,7 @@ upgradeData.push( new Upgrade(
     "Apes",
     {a:1, p:1, e:1, s:1},
     "Gain 5% more words/click",
-    "The apes go apeing (?)...",
+    "The apes go swinging...",
     function() {return true;}
 ))
 
@@ -116,6 +116,22 @@ upgradeData.push( new Upgrade(
 ))
 
 upgradeData.push( new Upgrade(
+    "Flys",
+    {f:1, l:1, y:1, s:1},
+    "Gain 5% more words/click",
+    "The flys go buzzing...",
+    function() {return true;}
+))
+
+upgradeData.push( new Upgrade(
+    "Hens",
+    {h:1, e:1, n:1, s:1},
+    "Gain 5% more words/click",
+    "The hens go clucking...",
+    function() {return true;}
+))
+
+upgradeData.push( new Upgrade(
     "Koi",
     {k:1, o:1, i:1},
     "Gain 5% more words/click",
@@ -136,6 +152,14 @@ upgradeData.push( new Upgrade(
     {p:1, i:1, g:1, s:1},
     "Gain 5% more words/click",
     "The pigs go snorting...",
+    function() {return true;}
+))
+
+upgradeData.push( new Upgrade(
+    "Yaks",
+    {y:1, a:1, k:1, s:1},
+    "Gain 5% more words/click",
+    "The yaks go yaking...",
     function() {return true;}
 ))
 
