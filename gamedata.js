@@ -1,16 +1,19 @@
-wordList = []
+wordList = {}
 
 
 function loadDoc(filename) {
     const xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
-	wordList = this.responseText.split("\n")
+	wordList[filename] = this.responseText.split("\n")
     }
-    xhttp.open("GET", "https://sirduck1296.github.io/WordBox/wordlists/" + filename);
+    xhttp.open("GET", "https://sirduck1296.github.io/WordBox/wordlists/" + filename + '.txt');
     xhttp.send();
 }
 
-loadDoc('three-common.txt')
+loadDoc('one-common')
+loadDoc('two-common')
+loadDoc('three-common')
+loadDoc('four-common')
 
 alphaSettings = {
     a: {"value": 1, "type":"main"},

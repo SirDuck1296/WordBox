@@ -160,7 +160,7 @@ function isPurchased(name) {
 }
 
 function calcWordChance() {
-    return 5
+    return 20
 	+ ( isPurchased('Ants') ? 5 : 0)
 	+ ( isPurchased('Apes') ? 5 : 0)
     	+ ( isPurchased('Asps') ? 5 : 0)
@@ -213,6 +213,11 @@ function autogrinderUpdate() {
 	autogrinder2_div.style.visibility = 'hidden'
 }
 
+function selectRandomWord() {
+    var list = wordList['three-common']
+    return list[Math.floor(Math.random()*list.length)]
+}
+
 function boxClick() {
     //Decide whether to toss out a word
     var chance = calcWordChance()
@@ -220,7 +225,7 @@ function boxClick() {
 	return
     }
 
-    var word = wordList[Math.floor(Math.random()*wordList.length)]
+    var word = selectRandomWord()
     var rarity = jRandom([10000, 1000, 100, 10, 1])
     
     var autogrinder_checked = document.getElementById('autogrinder-checkbox').checked
@@ -286,31 +291,64 @@ function boxClick() {
 function boxSelect() {
     var wordbox_select = document.getElementById('select-wordbox')
     var grinder_select = document.getElementById('select-grinder')
-
+    var poker_select   = document.getElementById('select-poker')
+    
     var wordbox = document.getElementById('wordbox-container')
     var grinder = document.getElementById('grinder-container')
+    var poker   = document.getElementById('poker-container')
     
     if (!wordbox_select.classList.contains('selection-row-selected')) {
 	wordbox_select.classList.add('selection-row-selected')
 	wordbox.style.display = 'inline-block'
+
 	grinder.style.display = 'none'
 	grinder_select.classList.remove('selection-row-selected')
+
+	poker.style.display = 'none'
+	poker_select.classList.remove('selection-row-selected')
     }
 }
 
 function grinderSelect() {
     var wordbox_select = document.getElementById('select-wordbox')
     var grinder_select = document.getElementById('select-grinder')
-
+    var poker_select   = document.getElementById('select-poker')
+    
     var wordbox = document.getElementById('wordbox-container')
     var grinder = document.getElementById('grinder-container')
+    var poker   = document.getElementById('poker-container')
     
     if (!grinder_select.classList.contains('selection-row-selected')) {
 	grinder_select.classList.add('selection-row-selected')
 	grinder.style.display = 'inline-block'
+
 	wordbox.style.display = 'none'
 	wordbox_select.classList.remove('selection-row-selected')
+
+	poker.style.display = 'none'
+	poker_select.classList.remove('selection-row-selected')
     }
+}
+
+function pokerSelect() {
+    var wordbox_select = document.getElementById('select-wordbox')
+    var grinder_select = document.getElementById('select-grinder')
+    var poker_select   = document.getElementById('select-poker')
+    
+    var wordbox = document.getElementById('wordbox-container')
+    var grinder = document.getElementById('grinder-container')
+    var poker   = document.getElementById('poker-container')
+
+    if (!poker_select.classList.contains('selection-row-selected')) {
+	poker_select.classList.add('selection-row-selected')
+	poker.style.display = 'inline-block'
+
+	wordbox.style.display = 'none'
+	wordbox_select.classList.remove('selection-row-selected')
+
+	grinder.style.display = 'none'
+	grinder_select.classList.remove('selection-row-selected')
+    }    
 }
 
 function grind(item) {

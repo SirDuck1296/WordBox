@@ -60,6 +60,14 @@
     padding: 10px;
 }
 
+#select-poker {
+    vertical-align: top;
+    display: inline-block;
+    width: 50 px;
+    border: 1px solid black;
+    padding: 10px;
+}
+
 #wordbox-container {
     display: inline-block;
 }
@@ -105,6 +113,20 @@
     transform: scaleX(-1);
     background-image: url("img/grinder.png");
     background-size: 300px 300px;
+}
+
+#poker-container {
+    display: none;
+}
+
+#poker {
+    vertical-align: top;
+    display: block;
+    position: relative;
+    width: 300px;
+    height: 300px;
+    background-image: url("img/poker.png");
+    background-size: 300px 300px;    
 }
 
 #inventory-words{
