@@ -217,7 +217,14 @@ function autogrinderUpdate() {
 }
 
 function selectRandomWord() {
-    var list = wordList['three-common']
+    var listNum = jRandom( [
+	2,
+	12,
+	386,
+	isPurchased('Four') ? 1000 : 0,
+	isPurchased('Five') ? 1000 : 0
+    ]);
+    var list = wordList[listNames[listNum]]
     return list[Math.floor(Math.random()*list.length)]
 }
 

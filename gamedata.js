@@ -10,10 +10,16 @@ function loadDoc(filename) {
     xhttp.send();
 }
 
-loadDoc('one-common')
-loadDoc('two-common')
-loadDoc('three-common')
-loadDoc('four-common')
+var listNames = [
+    'one-common',
+    'two-common',
+    'three-common',
+    'four-common',
+    'five-common' ]
+
+for (let name of listNames) {
+    loadDoc(name);
+}
 
 alphaSettings = {
     a: {"value": 1, "type":"main"},
