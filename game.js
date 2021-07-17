@@ -7,6 +7,15 @@ function Item(word, rarity) {
     this.selected = false
 }
 
+Item.prototype.value = function() {
+    var value = 0
+    for (letter of this.word) {
+	value += alphaValues[letter]
+    }
+    value *= Math.pow(2, this.rarity)
+    return value
+}
+
 game.inventory = []
 game.letters = {a:0, b:0, c:0, d:0, e:0, f:0, g:0,
 		h:0, j:0, i:0, j:0, k:0, l:0, m:0,
@@ -63,6 +72,8 @@ function inventoryWordsUpdate() {
     for (let i=0; i<game.inventory.length; i++) {
 	newdiv = document.createElement('div')
 	newdiv.className = 'word'
+	newdiv.draggable = true
+	newdiv.ondragstart = startWordDrag
 	newdiv.index = i
 	newdiv.onclick = wordClick
 	newdiv.innerText = game.inventory[i].word
@@ -266,7 +277,7 @@ function boxClick() {
 
     // Do animation of word
     let yfrom = 100
-    let yto = wordbox.clientHeight - div.clientHeight +
+    let yto = 300 - div.clientHeight +
 	Math.floor(Math.random() * 50);
 
     let xfrom = 150
@@ -387,6 +398,35 @@ function grindSelected() {
     update()
 }
 
+function pokerUpdate() {
+    var div = document.getElementById('poker-info')
+    while (div.firstChild)
+	div.removeChild(div.lastChild)
+    div.innerText = 'Autopoker: '
+
+    if (game.autopoker != undefined) {
+	var newdiv = document.createElement('div')
+	newdiv.className = 'word'
+	newdiv.innerText = game.autopoker.word
+	newdiv.classList.add('unselectable')
+	newdiv.style.display = 'inline-block'
+	addRarityClass(newdiv, game.autopoker.rarity)
+	div.appendChild(newdiv)
+
+	var newdiv = document.createElement('div')
+	newdiv.innerText = '' + game.autopoker.value()/10 +
+	    ' pokes/sec'
+	div.appendChild(newdiv)
+
+	if (game.autopokerInt != undefined)
+	    clearInterval(game.autopokerInt)
+	game.autopokerInt = setInterval( function() {
+	    boxClick();
+	}, 10000 / game.autopoker.value() )
+    }
+    else
+	div.innerText += 'none'
+}
 
 function update() {
     inventoryWordsUpdate()
@@ -394,6 +434,27 @@ function update() {
     upgradesUpdate()
     wordboxInfoUpdate()
     autogrinderUpdate()
+    pokerUpdate()
+}
+
+function startWordDrag(event) {
+    var inventory_words = document.getElementById('inventory-words')
+    event.dataTransfer.setData('index', event.target.index)
+}
+
+function allowDrop(event) {
+    event.preventDefault()
+}
+
+function pokerDrop(event) {
+    var index = event.dataTransfer.getData('index')
+
+    if (game.autopoker != undefined) {
+	game.inventory.push(game.autopoker)
+    }
+    game.autopoker = game.inventory[index]
+    game.inventory.splice(index, 1)
+    update()
 }
 
 window.onload = function() {update();}

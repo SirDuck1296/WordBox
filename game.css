@@ -129,6 +129,12 @@
     background-size: 300px 300px;    
 }
 
+#poker-info {
+    position: absolute;
+    top: 300px;
+    left: 400px;
+}
+
 #inventory-words{
     overflow-y: scroll;
     width: 200px;
