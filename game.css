@@ -104,6 +104,10 @@
     visibility: hidden;
 }
 
+#autogrinder3 {
+    visibility: hidden;
+}
+
 #grinder {
     vertical-align: top;
     display: block;

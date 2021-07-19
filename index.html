@@ -12,7 +12,7 @@
     <div id="title"><h1>The Word Box</h1></div>
     <div id="gamecontainer">
       <div id="left-container">
-	<h2>Inventory</h2>
+	<h2 id="inventory-header">Inventory</h2>
 	<div id="inventory-words"></div>
 	<h2>Letters</h2>
 	<div id="inventory-letters">
@@ -34,12 +34,16 @@
 	  <div id="grinder" class="unselectable"></div>
 	  <div id="grinder-buttons-container">
 	    <button onclick="grindSelected()">Grind Selected</button>
+	    <button onclick="grindAll()">Grind All</button>
 	    <div id='autogrinder'>
 	      <input type="checkbox" id='autogrinder-checkbox'>Autogrind when inventory is full
 	    </div>
 	    <div id="autogrinder2">
-	      <input type="checkbox" id='autogrinder2-checkbox'>Autogrind all common words
+	      <input type="checkbox" id='autogrinder2-checkbox'>Autogrind all <span class="common">common</span> words
 	    </div>
+	    <div id="autogrinder3">
+	      <input type="checkbox" id='autogrinder3-checkbox'>Autogrind all <span class="magic">magic</span> words
+	    </div>	    
 	  </div>
 	</div>
 	<div id="poker-container">

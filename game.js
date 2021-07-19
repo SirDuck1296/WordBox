@@ -83,6 +83,9 @@ function inventoryWordsUpdate() {
 	addRarityClass(newdiv, game.inventory[i].rarity)
 	inventory_div.appendChild(newdiv)
     }
+    // Update inventory word count
+    inv_header_div = document.getElementById('inventory-header')
+    inv_header_div.innerText = 'Inventory ' + game.inventory.length + ' / ' + calcInventorySize()
 }
 
 function inventoryLettersUpdate() {
@@ -217,14 +220,22 @@ function wordClick() {
 function autogrinderUpdate() {
     var autogrinder_div = document.getElementById('autogrinder')
     var autogrinder2_div = document.getElementById('autogrinder2')
+    var autogrinder3_div = document.getElementById('autogrinder3')    
+
     if (isPurchased('Autogrinder'))
 	autogrinder_div.style.visibility = 'visible'
     else
 	autogrinder_div.style.visibility = 'hidden'
+
     if (isPurchased('Common Ground'))
 	autogrinder2_div.style.visibility = 'visible'
     else
 	autogrinder2_div.style.visibility = 'hidden'
+
+    if (isPurchased('Ground Magic'))
+	autogrinder3_div.style.visibility = 'visible'
+    else
+	autogrinder3_div.style.visibility = 'hidden'
 }
 
 function selectRandomWord() {
@@ -251,28 +262,34 @@ function boxClick() {
     
     var autogrinder_checked = document.getElementById('autogrinder-checkbox').checked
     var autogrinder2_checked = document.getElementById('autogrinder2-checkbox').checked
+    var autogrinder3_checked = document.getElementById('autogrinder3-checkbox').checked
     
     if (game.inventory.length >= calcInventorySize() && !autogrinder_checked
-	&& !(rarity == 0 && autogrinder2_checked)) {
-	console.log('TODO: inventory full message')
+	&& !(rarity == 0 && autogrinder2_checked)
+        && !(rarity == 1 && autogrinder3_checked)) {
 	return
     }
     
     var div = document.createElement('div')
-    div.className = 'bouncing-word'
     div.innerText = word
     addRarityClass(div, rarity)
 
-    if (autogrinder2_checked && rarity == 0)
+    if (autogrinder3_checked && rarity == 1)
+	grind(new Item(word, rarity))
+    else if (autogrinder2_checked && rarity == 0)
 	grind(new Item(word, rarity))
     else if (game.inventory.length < calcInventorySize())
 	game.inventory.push(new Item(word, rarity));
     else if (autogrinder_checked) {
 	grind(new Item(word, rarity))
     }
+    animateBouncingWord(div)
     update()
-    
+}
+
+function animateBouncingWord(div) {
     wordbox = document.getElementById('wordbox')
+    div.classList.add('bouncing-word')
     wordbox.appendChild(div)
 
     // Do animation of word
@@ -398,13 +415,21 @@ function grindSelected() {
     update()
 }
 
+function grindAll() {
+    for (let i=0; i<game.inventory.length; i++) {
+	grind(game.inventory[i])
+    }
+    game.inventory = []
+    update()
+}
+
 function pokerUpdate() {
     var div = document.getElementById('poker-info')
     while (div.firstChild)
 	div.removeChild(div.lastChild)
     div.innerText = 'Autopoker: '
 
-    if (game.autopoker != undefined) {
+    if (game.autopoker !== undefined) {
 	var newdiv = document.createElement('div')
 	newdiv.className = 'word'
 	newdiv.innerText = game.autopoker.word
@@ -417,12 +442,14 @@ function pokerUpdate() {
 	newdiv.innerText = '' + game.autopoker.value()/10 +
 	    ' pokes/sec'
 	div.appendChild(newdiv)
-
-	if (game.autopokerInt != undefined)
-	    clearInterval(game.autopokerInt)
-	game.autopokerInt = setInterval( function() {
-	    boxClick();
-	}, 10000 / game.autopoker.value() )
+	if (game.lastautopoker === undefined || game.autopoker.value() != game.lastautopoke) {
+	    if (game.autopokerInt !== undefined)
+		clearInterval(game.autopokerInt)
+	    game.autopokerInt = setInterval( function() {
+		boxClick();
+	    }, 10000 / game.autopoker.value() )
+	}
+	game.lastautopoker = game.autopoker.value()
     }
     else
 	div.innerText += 'none'

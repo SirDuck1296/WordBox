@@ -188,6 +188,14 @@ upgradeData.push( new Upgrade(
 ))
 
 upgradeData.push( new Upgrade(
+    "Ground Magic",
+    {a:500, e:500, i:500, o:500, u:500},
+    "Option to grind all magic words",
+    "Add it to your coffee?",
+    function() {return ( calcWordChance() >= 50 );}
+))
+
+upgradeData.push( new Upgrade(
     "Four",
     {f:10, o:10, u:10, r:10},
     "Add four letter words to wordbox",
