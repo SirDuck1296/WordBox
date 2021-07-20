@@ -244,7 +244,12 @@ function selectRandomWord() {
 	12,
 	386,
 	isPurchased('Four') ? 1000 : 0,
-	isPurchased('Five') ? 1000 : 0
+	isPurchased('Five') ? 1000 : 0,
+	isPurchased('The Zoo') ? 12 : 0,  //two.txt
+	isPurchased('The Zoo') ? 250 : 0, //three.txt
+	isPurchased('The Zoo') ? 250 : 0, //four.txt
+	isPurchased('The Zoo') ? 250 : 0, //five.txt
+	isPurchased('Six') ? 500 : 0  //six.txt
     ]);
     var list = wordList[listNames[listNum]]
     return list[Math.floor(Math.random()*list.length)]

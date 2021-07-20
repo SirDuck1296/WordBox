@@ -15,7 +15,12 @@ var listNames = [
     'two-common',
     'three-common',
     'four-common',
-    'five-common' ]
+    'five-common',
+    'two',
+    'three',
+    'four',
+    'five',
+    'six' ]
 
 for (let name of listNames) {
     loadDoc(name);
